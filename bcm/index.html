@@ -5,14 +5,31 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="index.css" rel="stylesheet" />
-    <script src="index.js"></script>
+    <link rel="preconnect" href="https://script.google.com" crossorigin />
+    <script src="index.js" defer></script>
   </head>
-
   <body>
-    <div class="title">BCM</div>
-    <div class="content">
-      <input type="text" id="song" placeholder="132 03 211 332 3" />
-      <button id="open" type="button">Open</button>
+    <div id="loadingOverlay">
+      <div id="spinner"></div>
+    </div>
+    <div id="container">
+      <div id="title">BCM</div>
+      <div class="row">
+        <label for="times">Chọn thời gian:</label>
+        <select name="times" id="times" class="center">
+          <option value="">— Chọn mục —</option>
+        </select>
+      </div>
+      <div class="row">
+        <input type="text" id="songs" placeholder="132 PL3 211 332 3" />
+        <button id="open" type="button">Open</button>
+      </div>
+      <div class="row">
+        <div class="danger">
+          Nhấp vào <a href="https://book.watv.org/" target="_blank">đây</a> để
+          đăng nhập trước khi bấm Open.
+        </div>
+      </div>
     </div>
   </body>
 </html>
