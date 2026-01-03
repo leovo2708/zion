@@ -28,6 +28,9 @@ Promise.all([fetchData(), domReady()]).then(([data]) => {
     document.getElementById("songs").value = e.target.value;
   });
 
+  updateClock();
+  setInterval(updateClock, 1000);
+
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.has("admin")) {
     document.getElementById("refresh").removeAttribute("hidden");
@@ -36,6 +39,15 @@ Promise.all([fetchData(), domReady()]).then(([data]) => {
 
   fillData(data);
 });
+
+const updateClock = () => {
+  const now = new Date();
+  const hh = String(now.getHours()).padStart(2, "0");
+  const mm = String(now.getMinutes()).padStart(2, "0");
+  const ss = String(now.getSeconds()).padStart(2, "0");
+
+  document.getElementById("clock").textContent = `${hh}:${mm}:${ss}`;
+};
 
 const clearData = () => {
   const select = document.getElementById("times");
@@ -75,12 +87,11 @@ const openUrl = (url) => {
 const openClick = () => {
   const songIds = document
     .getElementById("songs")
-    .value.replaceAll(" ", ",")
-    .replaceAll(";", ",")
-    .split(",")
-    .filter((item) => item !== "");
+    .value.replace(/[^a-zA-Z0-9\s]/g, " ")
+    .trim()
+    .split(/\s+/);
   for (const id of songIds) {
-    var url;
+    let url = "";
     if (id.startsWith("PL")) {
       const s = parseInt(id.substring(2));
       if (Number.isInteger(s)) {
@@ -92,6 +103,8 @@ const openClick = () => {
         url = "https://book.watv.org/newsong/newsong" + s + "/";
       }
     }
+
+    if (url === "") continue;
 
     const result = openUrl(url);
     if (!result) return;

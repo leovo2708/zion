@@ -28,6 +28,10 @@ label {
   padding: 20px 0;
 }
 
+#clock {
+  font-weight: bold;
+}
+
 .center {
   text-align: center;
 }
