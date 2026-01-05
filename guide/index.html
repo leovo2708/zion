@@ -4,28 +4,155 @@
     <title>Guide</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"
+    />
     <link href="index.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://script.google.com" crossorigin />
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
     <script src="index.js" defer></script>
   </head>
   <body>
-    <ol>
-      <li>Thay đổi DNS</li>
-      <p>
-        Đối với Windows, tải file
-        <a href="dns_manager.bat" target="_blank">dns_manager.bat</a> về và
-        chạy, chọn 2 (Cloudflare DNS) hoặc 8 (Google DNS)
-      </p>
-      <img src="guide1.jpg" alt="dns_manager" />
-      <li>Sử dụng WARP</li>
-      <p>
-        Xem hướng dẫn chi tiết tại
-        <a
-          href="https://www.dienmayxanh.com/kinh-nghiem-hay/cach-su-dung-ung-dung-1-1-1-1-giup-vao-mang-nhanh-1258793"
-          target="_blank"
-          >đây</a
-        >
-      </p>
-    </ol>
+    <div class="container">
+      <div class="row center">
+        <h2>Hướng dẫn mở khóa khi nhà mạng chặn truy cập</h2>
+      </div>
+      <div id="step1" class="row box">
+        <div class="card">
+          <p><span class="circle-auto">1</span> ACE sử dụng thiết bị nào?</p>
+          <label class="radio-button-container"
+            >Windows
+            <input type="radio" name="os" value="windows" />
+            <span class="checkmark"></span>
+          </label>
+          <label class="radio-button-container"
+            >Android
+            <input type="radio" name="os" value="android" />
+            <span class="checkmark"></span>
+          </label>
+        </div>
+      </div>
+      <div id="step2" class="row box hidden">
+        <div class="card">
+          <p><span class="circle-auto">2</span> ACE chọn giải pháp nào?</p>
+          <label class="radio-button-container"
+            >DNS
+            <input type="radio" name="so" value="dns" />
+            <span class="checkmark"></span>
+          </label>
+          <label class="radio-button-container"
+            >WARP
+            <input type="radio" name="so" value="warp" />
+            <span class="checkmark"></span>
+          </label>
+        </div>
+      </div>
+      <div id="windows_dns" class="row hidden">
+        <p class="center">
+          <b>ACE đang xem hướng dẫn sử dụng DNS trên Windows</b>
+        </p>
+        <ol>
+          <li>
+            Tải file
+            <a href="dns_manager.bat" target="_blank">dns_manager.bat</a> về máy
+            tính.
+          </li>
+          <li>Nhấn kép vào file dns_manager.bat để kích hoạt chương trình.</li>
+          <li>
+            Trên màn hình của chương trình, ACE sẽ nhập vào số 2 (Cloudflare
+            DNS) hoặc số 8 (Google DNS) rồi nhấn Enter.
+            <a href="screenshots/windows_dns_1.jpg" class="glightbox">
+              <img src="screenshots/windows_dns_1.jpg" alt="dns_manager" />
+            </a>
+          </li>
+          <li>
+            ACE thấy thông báo như thế này là đã thành công.
+            <a href="screenshots/windows_dns_2.jpg" class="glightbox">
+              <img src="screenshots/windows_dns_2.jpg" alt="dns_manager" />
+            </a>
+          </li>
+          <li>Bây giờ hãy thử truy cập lại web và kiểm tra.</li>
+        </ol>
+      </div>
+      <div id="windows_warp" class="row hidden">
+        <p class="center">
+          <b>ACE đang xem hướng dẫn sử dụng WARP trên Windows</b>
+        </p>
+        <ol>
+          <li>
+            Click vào
+            <a
+              href="https://1111-releases.cloudflareclient.com/win/latest"
+              target="_blank"
+              >đây</a
+            >
+            để tải phần mềm WARP về máy tính.
+          </li>
+          <li>
+            Sau khi quá trình tải hoàn tất, khởi chạy tập tin MSI để bắt đầu quá
+            trình cài đặt. ACE thấy màn hình như bên dưới.
+            <a href="screenshots/windows_warp_1.jpg" class="glightbox">
+              <img src="screenshots/windows_warp_1.jpg" alt="warp" />
+            </a>
+          </li>
+          <li>
+            Nhấn Next. ACE thấy màn hình như bên dưới.
+            <a href="screenshots/windows_warp_2.jpg" class="glightbox">
+              <img src="screenshots/windows_warp_2.jpg" alt="warp" />
+            </a>
+          </li>
+          <li>
+            Nhấn Install để tiến hành cài đặt WARP trên máy tính.
+          </li>
+          <li>
+            Sau khi hoàn tất cài đặt, WARP sẽ tự động khởi chạy. ACE sẽ thấy màn
+            hình như dưới.
+            <a href="screenshots/windows_warp_3.jpg" class="glightbox">
+              <img src="screenshots/windows_warp_3.jpg" alt="warp" />
+            </a>
+          </li>
+          <li>
+            Nếu ACE không thấy màn hình này, hãy tìm biểu tượng WARP hình đám
+            mây ở góc phải dưới thanh Taskbar và nhấn đúp vào đó để mở ứng dụng.
+            <a href="screenshots/windows_warp_4.jpg" class="glightbox">
+              <img src="screenshots/windows_warp_4.jpg" alt="warp" />
+            </a>
+          </li>
+          <li>
+            Bấm Next tại màn hình ở bước 5, ACE sẽ thấy màn hình như bên dưới.
+            <a href="screenshots/windows_warp_5.jpg" class="glightbox">
+              <img src="screenshots/windows_warp_5.jpg" alt="warp" />
+            </a>
+          </li>
+          <li>
+            Bấm Accept để chấp nhận, ACE sẽ thấy màn hình tiếp theo như sau.
+            <a href="screenshots/windows_warp_6.jpg" class="glightbox">
+              <img src="screenshots/windows_warp_6.jpg" alt="warp" />
+            </a>
+          </li>
+          <li>
+            Hãy bấm vào nút công tắc để kích hoạt WARP. Khi WARP được kích hoạt,
+            ACE sẽ thấy màn hình như sau.
+            <a href="screenshots/windows_warp_7.jpg" class="glightbox">
+              <img src="screenshots/windows_warp_7.jpg" alt="warp" />
+            </a>
+          </li>
+          <li>
+            Quá trình cài đặt WARP đã hoàn tất. Bây giờ hãy thử truy cập lại web
+            và kiểm tra.
+          </li>
+        </ol>
+      </div>
+      <div id="android_dns" class="row hidden">
+        <p class="center">
+          <b>ACE đang xem hướng dẫn sử dụng DNS trên Android</b>
+        </p>
+      </div>
+      <div id="android_warp" class="row hidden">
+        <p class="center">
+          <b>ACE đang xem hướng dẫn sử dụng WARP trên Android</b>
+        </p>
+      </div>
+    </div>
   </body>
 </html>

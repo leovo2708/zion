@@ -1,0 +1,167 @@
+body {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 18px;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ≥576px */
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+/* ≥768px */
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+/* ≥992px */
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+/* ≥1200px */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+/* ≥1400px */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+.row {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.row + .row {
+  margin-top: 20px;
+}
+
+.center {
+  text-align: center;
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.box {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.card {
+  width: 400px;
+  display: inline-block;
+  box-shadow: 0px 8px 12px 2px rgba(0, 0, 0, 0.14),
+    0px 3px 15px 3px rgba(0, 0, 0, 0.12), 0px 4px 5px -3px rgba(0, 0, 0, 0.2);
+}
+
+.card p {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  margin: 0;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.radio-button-container {
+  color: rgba(0, 0, 0, 0.75);
+  display: block;
+  position: relative;
+  padding-left: 24px;
+  line-height: 20px;
+  margin-bottom: 12px;
+  margin-left: 20px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.radio-button-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.25);
+  transition: all 0.3s;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.radio-button-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.radio-button-container .checkmark:after {
+  top: 0px;
+  left: 0px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: teal;
+}
+
+.circle-auto {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgb(13, 110, 253);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.gscrollbar-fixer {
+  margin-right: auto !important;
+}
+
+.hidden {
+  display: none;
+}

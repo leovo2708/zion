@@ -5,7 +5,7 @@ title DNS Manager
 net session >nul 2>&1
 if %errorlevel% neq 0 (
     echo Requesting administrative privileges...
-    powershell -Command "Start-Process cmd -ArgumentList '/c \"%~f0\"' -Verb RunAs"
+    powershell -Command "Start-Process '%~f0' -Verb RunAs"
     exit /b
 )
 
@@ -24,7 +24,7 @@ for /f "tokens=* delims=" %%a in ('powershell -NoProfile -Command "Get-NetAdapte
 if "%InterfaceName%"=="" (
     color 0C
     echo ===================================
-    echo       No active network found!     
+    echo       No active network found!
     echo ===================================
     pause
     exit /b
@@ -35,7 +35,7 @@ set "origin=main"
 cls
 color 0B
 echo ====================================
-echo            DNS Manager              
+echo            DNS Manager
 echo ====================================
 echo Current Active Network: %InterfaceName%
 echo ====================================
