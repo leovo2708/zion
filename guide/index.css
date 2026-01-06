@@ -154,7 +154,7 @@ img {
   margin: 0 auto;
 }
 
-li {
+ol > li, ul {
   margin-bottom: 10px;
 }
 
@@ -164,4 +164,8 @@ li {
 
 .hidden {
   display: none;
+}
+
+.mt-10 {
+  margin-top: 10px;
 }
