@@ -90,6 +90,7 @@ const openUrl = (url) => {
 };
 
 const openClick = () => {
+  const songUrl = "https://bookvn.net/newsong/newsong";
   const songIds = document
     .getElementById("songs")
     .value.replace(/[^a-zA-Z0-9\s]/g, " ")
@@ -100,12 +101,12 @@ const openClick = () => {
     if (id.startsWith("PL")) {
       const s = parseInt(id.substring(2));
       if (Number.isInteger(s)) {
-        url = "https://book.watv.org/newsong/newsong" + "-appx00" + s + "/";
+        url = songUrl + "-appx00" + s + "/";
       }
     } else {
       const s = parseInt(id);
       if (Number.isInteger(s)) {
-        url = "https://book.watv.org/newsong/newsong" + s + "/";
+        url = songUrl + s + "/";
       }
     }
 
