@@ -89,6 +89,14 @@ const openUrl = (url) => {
   return true;
 };
 
+const appxMapping = {
+  1: 5,
+  2: 1,
+  3: 2,
+  4: 3,
+  5: 4,
+}
+
 const openClick = () => {
   const songUrl = "https://bookvn.net/newsong/newsong";
   const songIds = document
@@ -101,7 +109,7 @@ const openClick = () => {
     if (id.startsWith("PL")) {
       const s = parseInt(id.substring(2));
       if (Number.isInteger(s)) {
-        url = songUrl + "-appx00" + s + "/";
+        url = songUrl + "-appx00" + appxMapping[s] + "/";
       }
     } else {
       const s = parseInt(id);
