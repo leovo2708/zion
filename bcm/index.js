@@ -1,82 +1,86 @@
-const GS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbyvHFutFktjUdVPFqtIC5ELZ14dgRzuoroY3DK-SuO6W5t1UUJK0udhhIeOJ6bcbbpe0g/exec";
-
-async function fetchData() {
-  const r = await fetch(GS_SCRIPT_URL);
-  if (!r.ok) throw new Error(r.status);
-  return await r.json();
-}
-
-async function clearCache() {
-  return await fetch(GS_SCRIPT_URL, {
-    method: "POST",
-    mode: "no-cors",
-  });
-}
-
-async function domReady() {
-  if (document.readyState !== "loading") return;
-  await new Promise((resolve) =>
-    document.addEventListener("DOMContentLoaded", resolve, { once: true })
-  );
-}
-
-Promise.all([fetchData(), domReady()]).then(([data]) => {
-  document.getElementById("loadingOverlay").classList.add("hidden");
-  document.getElementById("open").addEventListener("click", openClick);
-  document.getElementById("times").addEventListener("change", (e) => {
-    document.getElementById("songs").value = e.target.value;
-  });
-
-  updateClock();
-  setInterval(updateClock, 1000);
-
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has("admin")) {
-    document.getElementById("refresh").removeAttribute("hidden");
-    document.getElementById("refresh").addEventListener("click", refreshClick);
-  }
-
-  fillData(data);
-});
-
-const updateClock = () => {
-  const now = new Date();
-  const hh = String(now.getHours()).padStart(2, "0");
-  const mm = String(now.getMinutes()).padStart(2, "0");
-  const ss = String(now.getSeconds()).padStart(2, "0");
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const day = String(now.getDate()).padStart(2, "0");
-
-  document.getElementById(
-    "clock"
-  ).textContent = `${hh}:${mm}:${ss} ngày ${day}/${month}/${year}`;
+window.onerror = function (msg, url, line, col, error) {
+  alert("Error: " + msg + "\nLine: " + line + "\nCol: " + col);
+  return false;
 };
 
-const clearData = () => {
-  const select = document.getElementById("times");
+window.addEventListener("unhandledrejection", function (e) {
+  alert("Promise Error: " + e.reason);
+});
+
+var GS_SCRIPT_URL = "https://zion.leovo2708.workers.dev";
+
+function fetch(action) {
+  return new Promise(function (resolve, reject) {
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState !== 4) return;
+
+      if (xhr.status >= 200 && xhr.status < 300) {
+        resolve(JSON.parse(xhr.responseText));
+      } else {
+        reject(xhr.status);
+      }
+    };
+
+    xhr.open("GET", GS_SCRIPT_URL + "?action=" + action, true);
+    xhr.send();
+  });
+}
+
+function fetchData() {
+  return fetch("data");
+}
+
+function clearCache() {
+  return fetch("clear");
+}
+
+function padLeft(value) {
+  value = String(value);
+  return value.length < 2 ? "0" + value : value;
+}
+
+function updateClock() {
+  var now = new Date();
+
+  var hh = padLeft(now.getHours());
+  var mm = padLeft(now.getMinutes());
+  var ss = padLeft(now.getSeconds());
+
+  var year = now.getFullYear();
+  var month = padLeft(now.getMonth() + 1);
+  var day = padLeft(now.getDate());
+
+  document.getElementById("clock").textContent =
+    hh + ":" + mm + ":" + ss + " ngày " + day + "/" + month + "/" + year;
+}
+
+function clearData() {
+  var select = document.getElementById("times");
   select.selectedIndex = 0;
-  select.dispatchEvent(new Event("change"));
+  var evt = document.createEvent("HTMLEvents");
+  evt.initEvent("change", true, false);
+  select.dispatchEvent(evt);
   while (select.options.length > 1) {
     select.remove(1);
   }
-};
+}
 
-const fillData = (data) => {
+function fillData(data) {
   if (!data) return;
 
-  const select = document.getElementById("times");
-  data.forEach((row) => {
-    const opt = document.createElement("option");
+  var select = document.getElementById("times");
+  data.forEach(function (row) {
+    var opt = document.createElement("option");
     opt.value = row.Songs;
     opt.textContent = row.Date;
     select.appendChild(opt);
   });
-};
+}
 
-const openUrl = (url) => {
-  const win = window.open(url, "_blank");
+function openUrl(url) {
+  var win = window.open(url, "_blank");
   if (win) {
     //Browser has allowed it to be opened
     win.focus();
@@ -87,49 +91,81 @@ const openUrl = (url) => {
   }
 
   return true;
-};
-
-const appxMapping = {
-  1: 5,
-  2: 1,
-  3: 2,
-  4: 3,
-  5: 4,
 }
 
-const openClick = () => {
-  const songUrl = "https://bookvn.net/newsong/newsong";
-  const songIds = document
+function isInteger(value) {
+  return (
+    typeof value === "number" && isFinite(value) && Math.floor(value) === value
+  );
+}
+
+function openClick() {
+  var appxMapping = {
+    1: 5,
+    2: 1,
+    3: 2,
+    4: 3,
+    5: 4,
+  };
+  var songUrl = "https://bookvn.net/newsong/newsong";
+  var songIds = document
     .getElementById("songs")
     .value.replace(/[^a-zA-Z0-9\s]/g, " ")
     .trim()
     .split(/\s+/);
-  for (const id of songIds) {
-    let url = "";
-    if (id.startsWith("PL")) {
-      const s = parseInt(id.substring(2));
-      if (Number.isInteger(s)) {
+  for (var i = 0; i < songIds.length; i++) {
+    var id = songIds[i];
+    var url = "";
+    if (id.indexOf("PL") === 0) {
+      var s = parseInt(id.substring(2), 10);
+      if (isInteger(s)) {
         url = songUrl + "-appx00" + appxMapping[s] + "/";
       }
     } else {
-      const s = parseInt(id);
-      if (Number.isInteger(s)) {
+      var s = parseInt(id, 10);
+      if (isInteger(s)) {
         url = songUrl + s + "/";
       }
     }
 
     if (url === "") continue;
 
-    const result = openUrl(url);
+    var result = openUrl(url);
     if (!result) return;
   }
-};
+}
 
-const refreshClick = async () => {
+function refreshClick() {
   document.getElementById("loadingOverlay").classList.remove("hidden");
   clearData();
-  await clearCache();
-  const data = await fetchData();
-  fillData(data);
+  clearCache()
+    .then(function () {
+      return fetchData();
+    })
+    .then(function (data) {
+      fillData(data);
+      document.getElementById("loadingOverlay").classList.add("hidden");
+    })
+    .catch(function (err) {
+      console.error(err);
+      document.getElementById("loadingOverlay").classList.add("hidden");
+    });
+}
+
+fetchData().then(function (data) {
   document.getElementById("loadingOverlay").classList.add("hidden");
-};
+  document.getElementById("open").addEventListener("click", openClick);
+  document.getElementById("times").addEventListener("change", function (e) {
+    document.getElementById("songs").value = e.target.value;
+  });
+
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  if (window.location.search.indexOf("admin") !== -1) {
+    document.getElementById("refresh").removeAttribute("hidden");
+    document.getElementById("refresh").addEventListener("click", refreshClick);
+  }
+
+  fillData(data);
+});
